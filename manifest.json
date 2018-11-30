@@ -1,9 +1,14 @@
 {
-    "name": "Extension Template",
-    "manifest_version": 2,
-    "version": "0.0.1",
-    "browser_action": {
-        "default_popup": "index.html",
-        "default_icon": "icons/bee.png"
-    }
+  "name": "To Do List",
+  "description": "to do list",
+  "version": "1.0.0",
+  "icons": {
+    "16": "icons/bee.png"
+  },
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "author": "SW extension team",
+  "manifest_version": 2,
+  "content_security_policy": "default-src 'self' script-src 'self' https://www.google-analytics.com; object-src 'self'"
 }
