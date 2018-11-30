@@ -130,6 +130,7 @@ export default {
   position: relative;
   display: inline-block;
   top: 30%;
+  left: calc(50% - 250px);
 }
 
 .time-show-layout .date {

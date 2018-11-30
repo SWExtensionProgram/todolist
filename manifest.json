@@ -10,5 +10,5 @@
   },
   "author": "SW extension team",
   "manifest_version": 2,
-  "content_security_policy": "default-src 'self' script-src 'self' https://www.google-analytics.com; object-src 'self'"
+  "content_security_policy": "default-src 'self' script-src 'self' https://www.google-analytics.com; object-src 'self'; style-src 'self'"
 }
