@@ -28,6 +28,11 @@ export default {
       this.$emit("cancel");
     },
     complete: function() {
+      if (this.memo.content.length <= 0) {
+        alert("내용을 입력해주세요.");
+        return;
+      }
+
       this.memo = this.memo;
       this.$emit("complete", this.memo);
     }
