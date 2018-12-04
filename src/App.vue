@@ -74,7 +74,6 @@ export default {
         .format("HH:mm:ssa");
     },
     change_show_state: function(obj) {
-      console.log("show state", obj);
       if (obj == 0) {
         this.memoShow = !this.memoShow;
         this.todoShow = false;

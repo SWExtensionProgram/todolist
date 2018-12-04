@@ -5,8 +5,8 @@
         <div class="content-item" v-for="(memo, index) in memo_list" :key="index">
           <button class="content-btn" v-on:click="go_modification(index)">
             <div class="content-content">{{ memo.content }}</div>
-            <i class="content-icon" v-on:click="delete_item(index)">x</i>
           </button>
+          <i class="content-icon" v-on:click="delete_item(index)">x</i>
         </div>
       </div>
     </div>
@@ -23,13 +23,18 @@ export default {
   data() {
     return {};
   },
+  mounted: function() {
+    // console.log("list :", memo_list);
+  },
   methods: {
     go_detail: function(index) {},
     go_modification: function(index) {
       this.$emit("modification", index);
+      console.log("modi event generate");
     },
     delete_item: function(index) {
       this.$emit("delete", index);
+      console.log("del event generate");
     }
   }
 };
@@ -53,7 +58,7 @@ export default {
 
 .content-btn {
   position: relative;
-  width: 100%;
+  width: 93%;
   background-color: transparent;
   outline: 0px;
   border: 0px;
@@ -61,7 +66,7 @@ export default {
 
 .content-content {
   display: inline-block;
-  width: 93%;
+  width: 100%;
   padding: 0 5px;
   overflow: hidden;
   text-overflow: ellipsis;
