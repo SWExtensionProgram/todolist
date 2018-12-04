@@ -4,7 +4,7 @@
       <div class="header-title">{{ title }}</div>
       <div class="header-selection">
         <button class="drop-btn">
-          menu
+          ...
           <i class="fa fa-caret-down"></i>
         </button>
         <div class="drop-content">
@@ -142,6 +142,8 @@ export default {
   outline: 0px;
   border: 0px;
   top: 1%;
+  width: 50px;
+  text-align: right;
 }
 
 .drop-content {
