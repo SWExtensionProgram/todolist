@@ -1,5 +1,5 @@
 <template>
-  <div class="root-layout">
+  <div class="root-layout" style="background-image: url('/static/image/nature-3294543_1920.jpg')">
     <div class="timezone-selection">
       <select onfocus="this.size=6;" onchange="this.size=1; this.blur();" v-model="timezone">
         <!-- <select size="5" v-model="timezone"> -->
@@ -98,6 +98,9 @@ export default {
   width: 100%;
   background-color: transparent;
   overflow-y: hidden;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .timezone-selection {
