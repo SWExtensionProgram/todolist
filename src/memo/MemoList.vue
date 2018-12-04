@@ -1,6 +1,15 @@
 <template>
   <div class="root-layout">
-    <div class="content-layout" v-if="memo_list.length"></div>
+    <div class="content-layout" v-if="memo_list.length">
+      <div class="content-list">
+        <div class="content-item" v-for="(memo, index) in memo_list" :key="index">
+          <button class="content-btn" v-on:click="go_modification(index)">
+            <div class="content-content">{{ memo.content }}</div>
+            <i class="content-icon" v-on:click="delete_item(index)">x</i>
+          </button>
+        </div>
+      </div>
+    </div>
     <div class="non-content-layout" v-else>
       <div class="non-content-content">항목이 없습니다.</div>
     </div>
@@ -10,12 +19,19 @@
 <script>
 export default {
   name: "MemoList",
+  props: ["memo_list"],
   data() {
-    return {
-      memo_list: [{}]
-    };
+    return {};
   },
-  methods: {}
+  methods: {
+    go_detail: function(index) {},
+    go_modification: function(index) {
+      this.$emit("modification", index);
+    },
+    delete_item: function(index) {
+      this.$emit("delete", index);
+    }
+  }
 };
 </script>
 
@@ -28,6 +44,36 @@ export default {
   width: 100%;
   background-color: transparent;
   overflow-y: scroll;
+}
+
+.content-list {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.content-btn {
+  position: relative;
+  width: 100%;
+  background-color: transparent;
+  outline: 0px;
+  border: 0px;
+}
+
+.content-content {
+  display: inline-block;
+  width: 93%;
+  padding: 0 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.content-icon {
+  display: inline-block;
+  position: relative;
+  width: fit-content;
+  float: right;
 }
 
 .non-content-layout {

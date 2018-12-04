@@ -13,6 +13,7 @@
     "copy-webpack-plugin": "^4.5.1",
     "moment-timezone": "^0.5.23",
     "vue": "^2.5.11",
+    "vue-router": "^3.0.2",
     "webpack-archive-plugin": "^3.0.0",
     "zip-webpack-plugin": "^3.0.0"
   },

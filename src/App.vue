@@ -2,6 +2,7 @@
   <div class="root-layout">
     <div class="timezone-selection">
       <select onfocus="this.size=6;" onchange="this.size=1; this.blur();" v-model="timezone">
+        <!-- <select size="5" v-model="timezone"> -->
         <option value selected disabled hidden>Timezone</option>
         <option v-for="(zone, index) in timezone_list" :key="index">{{zone}}</option>
       </select>
@@ -49,11 +50,13 @@ export default {
   beforeCreate: function() {},
   mounted: function() {
     this.show_time();
+    // 기존에 설정된 timezone이 있으면 불러와야 하는 부분
     moment.tz.setDefault("Asia/Seoul");
     this.timezone_list = moment.tz.names();
   },
   watch: {
     timezone: function() {
+      // timezone 변경해야 하는 부분. XXX = this.timezone의 형태로 변경 가능.
       this.show_time();
     }
   },
@@ -95,6 +98,7 @@ export default {
   height: 100%;
   width: 100%;
   background-color: transparent;
+  overflow-y: hidden;
 }
 
 .timezone-selection {
