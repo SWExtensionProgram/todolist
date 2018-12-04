@@ -96,6 +96,8 @@ export default {
     },
     create_complete: function(new_memo) {
       this.change_title_origin();
+      new_memo.id = this.last_index + 1;
+      this.last_index = this.last_index + 1;
       console.log(new_memo);
       this.memo_list.splice(0, 0, new_memo);
     },
