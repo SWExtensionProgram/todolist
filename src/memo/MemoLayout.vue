@@ -15,16 +15,21 @@
     </div>
     <div class="content-layout">
       <memo-detail :memo="memo_list[selected_index]" v-if="show_mode == 1"></memo-detail>
-      <memo-modification :memo="memo_list[selected_index]" v-else-if="show_mode == 2"></memo-modification>
+      <memo-modification
+        :memo="memo_list[selected_index]"
+        v-on:cancel="modification_cancel"
+        v-on:complete="modification_complete"
+        v-else-if="show_mode == 2"
+      ></memo-modification>
       <memo-creation
-        v-on:creation="create_item"
-        v-on:creation_cancel="cancle_creation"
+        v-on:creation="create_complete"
+        v-on:cancel="create_cancel"
         v-else-if="show_mode == 4"
       ></memo-creation>
       <memo-list
         :memo_list="memo_list"
         v-on:delete="delete_item"
-        v-on:modification="go_modification"
+        v-on:modification="modification_mode"
         v-else
       ></memo-list>
       <!-- <memo-creation v-on:creation="create_item"></memo-creation> -->
@@ -48,8 +53,8 @@ export default {
   },
   watch: {
     mode: function() {
-      if (this.mode == 1) {
-        this.title = this.memo_list[this.selected_index];
+      if (this.mode == 1 || this.mode == 2) {
+        this.title = this.memo_list[this.selected_index].content;
       }
     }
   },
@@ -75,32 +80,55 @@ export default {
         { id: 1, content: "hello" },
         { id: 2, content: "world" },
         { id: 3, content: "worldhellowdsfjxzkljksjflsjflksxkxk" }
-      ]
+      ],
+      origin_memo: null
     };
   },
   methods: {
+    modification_cancel: function() {
+      this.change_title_origin();
+      this.memo_list.splice(this.selected_index, 1, this.origin_memo);
+    },
+    modification_complete: function() {
+      this.change_title_origin();
+    },
+    create_cancel: function() {
+      this.change_title_origin();
+    },
+    create_complete: function(new_memo) {
+      this.change_title_origin();
+      this.memo_list.splice(0, 0, new_memo);
+    },
     create_mode: function() {
       this.mode = 4;
       this.title = "NEW MEMO";
     },
-    cancle_creation: function() {
-      this.mode = 3;
-      this.title = "MEMO";
-    },
-    create_item: function() {
+    change_title_origin: function() {
       this.mode = 3;
       this.title = "MEMO";
     },
     delete_item: function(index) {
       this.memo_list.splice(index, 1);
       // console.log(this.memo_list, this.mode);
-      this.mode = 3;
-      console.log("delete");
+      this.change_title_origin();
     },
-    go_modification: function(index) {
+    modification_mode: function(index) {
       this.mode = 2;
-      console.log("modificaton");
       this.selected_index = index;
+      this.origin_memo = clone(this.memo_list[this.selected_index]);
+    },
+    clone: function(obj) {
+      if (obj === null || typeof obj !== "object") return obj;
+
+      var copy = obj.constructor();
+
+      for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) {
+          copy[attr] = obj[attr];
+        }
+      }
+
+      return copy;
     }
   }
 };
@@ -126,8 +154,10 @@ export default {
   text-align: left;
   display: inline-block;
   left: 3%;
-  width: fit-content;
-  position: relative;
+  width: 81%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .header-selection {

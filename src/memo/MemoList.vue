@@ -30,11 +30,9 @@ export default {
     go_detail: function(index) {},
     go_modification: function(index) {
       this.$emit("modification", index);
-      console.log("modi event generate");
     },
     delete_item: function(index) {
       this.$emit("delete", index);
-      console.log("del event generate");
     }
   }
 };
