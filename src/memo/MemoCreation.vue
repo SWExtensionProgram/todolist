@@ -1,16 +1,37 @@
 <template>
-  <div class="root-layout"></div>
+  <div class="root-layout">
+    <div class="content-area">
+      <textarea v-model="memo.content"></textarea>
+    </div>
+    <div class="btn-area">
+      <button v-on:click="cancel">취소</button>
+      |
+      <button v-on:click="complete">완료</button>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: "MemoModification",
   mounted: function() {},
-  props: ["memo"],
   data() {
-    return {};
+    return {
+      memo: {
+        id: null,
+        content: ""
+      }
+    };
   },
-  methods: {}
+  methods: {
+    cancel: function() {
+      this.$emit("cancel");
+    },
+    complete: function() {
+      this.memo = this.memo;
+      this.$emit("complete", this.memo);
+    }
+  }
 };
 </script>
 
@@ -22,5 +43,34 @@ export default {
   height: 100%;
   width: 100%;
   background-color: transparent;
+}
+
+.content-area {
+  height: 85%;
+}
+
+.content-area textarea {
+  display: block;
+  position: relative;
+  margin: auto;
+  width: 95%;
+  height: 100%;
+  resize: none;
+  background-color: transparent;
+  outline: 0px;
+  border: 0px;
+}
+
+.btn-area {
+  text-align: right;
+  display: block;
+  position: relative;
+}
+
+.btn-area button {
+  text-align: right;
+  background-color: transparent;
+  outline: 0px;
+  border: 0px;
 }
 </style>

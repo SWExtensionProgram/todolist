@@ -22,7 +22,7 @@
         v-else-if="show_mode == 2"
       ></memo-modification>
       <memo-creation
-        v-on:creation="create_complete"
+        v-on:complete="create_complete"
         v-on:cancel="create_cancel"
         v-else-if="show_mode == 4"
       ></memo-creation>
@@ -80,23 +80,23 @@ export default {
         { id: 1, content: "hello" },
         { id: 2, content: "world" },
         { id: 3, content: "worldhellowdsfjxzkljksjflsjflksxkxk" }
-      ],
-      origin_memo: null
+      ]
     };
   },
   methods: {
     modification_cancel: function() {
       this.change_title_origin();
-      this.memo_list.splice(this.selected_index, 1, this.origin_memo);
     },
     modification_complete: function() {
       this.change_title_origin();
+      // this.memo_list.splice(this.selected_index, 1, new_object);
     },
     create_cancel: function() {
       this.change_title_origin();
     },
     create_complete: function(new_memo) {
       this.change_title_origin();
+      console.log(new_memo);
       this.memo_list.splice(0, 0, new_memo);
     },
     create_mode: function() {
@@ -115,20 +115,6 @@ export default {
     modification_mode: function(index) {
       this.mode = 2;
       this.selected_index = index;
-      this.origin_memo = clone(this.memo_list[this.selected_index]);
-    },
-    clone: function(obj) {
-      if (obj === null || typeof obj !== "object") return obj;
-
-      var copy = obj.constructor();
-
-      for (var attr in obj) {
-        if (obj.hasOwnProperty(attr)) {
-          copy[attr] = obj[attr];
-        }
-      }
-
-      return copy;
     }
   }
 };

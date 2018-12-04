@@ -1,7 +1,7 @@
 <template>
-  <div class="root-layout">
+  <div class="root-layout" v-if="origin_memo">
     <div class="content-area">
-      <textarea v-model="memo.content"></textarea>
+      <textarea v-model="origin_memo.content"></textarea>
     </div>
     <div class="btn-area">
       <button v-on:click="cancel">취소</button>
@@ -17,15 +17,33 @@ export default {
   mounted: function() {},
   props: ["memo"],
   data() {
-    return {};
+    return {
+      origin_memo: null
+    };
+  },
+  mounted: function() {
+    this.origin_memo = this.clone(this.memo);
   },
   methods: {
     cancel: function() {
       this.$emit("cancel");
     },
     complete: function() {
-      this.memo = this.memo;
+      this.memo.content = this.origin_memo.content;
       this.$emit("complete");
+    },
+    clone: function(obj) {
+      if (obj === null || typeof obj !== "object") return obj;
+
+      var copy = obj.constructor();
+
+      for (var attr in obj) {
+        if (obj.hasOwnProperty(attr)) {
+          copy[attr] = obj[attr];
+        }
+      }
+
+      return copy;
     }
   }
 };
@@ -39,7 +57,6 @@ export default {
   height: 100%;
   width: 100%;
   background-color: transparent;
-  background-image: linear-gradient(salmon, pink);
 }
 
 .content-area {
