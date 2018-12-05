@@ -13,6 +13,7 @@
 	<div class="content-layout">
 		<div v-if="viewType==='revise'">
 			<todoRevisePage :todo="todos[index]" :viewType="viewType" :index="index" @reviseTodo="reviseTodo" @canselTodo="canselTodo" />
+			<alert v-show="isAlertVisible" @close="closeAlert"/>
 		</div>		
 		<div v-else-if="viewType==='todo'">
 			<todoPage :todos="todos" @createTodo="createTodo" @canselTodo="canselTodo" />
@@ -56,6 +57,7 @@ export default {
 			this.todos.splice(i,1);
 		},
 		createTodo(name,content,deadline){
+
 			if(content == null){
 				this.showAlert();
 			}
@@ -73,11 +75,13 @@ export default {
 			}
 		},
 		reviseTodo(name,content,deadline,i){
-			this.todos.splice(i,1);
-			if(content ==null){
+			console.log("content")
+			console.log(content)
+			if(content == ""){
 				this.showAlert();
 			}
-			else{	
+			else{
+				this.todos.splice(i,1);
 				this.changeToListView()
 				this.todos.push({name:name, content:content, deadline:deadline});
 				this.name = null

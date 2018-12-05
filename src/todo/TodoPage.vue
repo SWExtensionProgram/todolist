@@ -61,7 +61,7 @@ export default {
   padding: 0 15px;
   font-size: 13px;
   vertical-text-align: middle;
-    font-family: Arial;
+  font-family: Arial;
 }
 .name-area{
 	width:95%;

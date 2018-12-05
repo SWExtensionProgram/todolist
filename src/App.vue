@@ -32,7 +32,7 @@
 <script>
 var moment = require("moment-timezone");
 import memo from "./memo/MemoLayout.vue";
-import todo from "./todo/TodoView.vue";
+import todo from "./todo/TodolistView.vue";
 export default {
   name: "time",
   data() {
