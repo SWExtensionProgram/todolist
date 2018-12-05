@@ -4,7 +4,9 @@
 		<div class="content-list">
 			<div class="content-item" v-for="(todo, index) in todos">
 				<button class="content-btn" v-on:click="changeToReviseView(index)">
-					<div class="content-content">{{ todo.name }}</div>
+					<div class="content-content">{{ todo.name }}
+					<div class="content-deadline">{{todo.deadline}}</div>
+					</div>
 				</button>
 				<i class="content-icon" v-on:click="deleteTodo(index)">x</i>
 			</div>
@@ -65,6 +67,10 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   text-align: left;
+}
+.content-deadline {
+  font-size: 7px;
+  color: rgba(0, 0, 0, 0.5);
 }
 .content-icon {
   display: inline-block;

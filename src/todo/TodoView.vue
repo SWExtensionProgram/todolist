@@ -16,6 +16,7 @@
 		</div>		
 		<div v-else-if="viewType==='todo'">
 			<todoPage :todos="todos" @createTodo="createTodo" @canselTodo="canselTodo" />
+			<alert v-show="isAlertVisible" @close="closeAlert"/>
 		</div>
 		<div v-else>
 				<todoList :todos="todos" @deleteTodo="deleteTodo"
@@ -30,22 +31,22 @@
 import todoList from './TodoList';
 import todoPage from './TodoPage';
 import todoRevisePage from './TodoRevisePage';
+import alert from './alert';
 　
 export default {
 	name: 'TodoView',
     components: {
         todoPage,
         todoList,
-		todoRevisePage
+		todoRevisePage,
+		alert
     },
   data () {
     return {
 		title:"TODO",
 		viewType:'list',
-		name:null,
-		content:null,
-		deadline:null,
 		index:-1,
+		isAlertVisible: false,
 		todos: []
     }
   },
@@ -55,7 +56,13 @@ export default {
 			this.todos.splice(i,1);
 		},
 		createTodo(name,content,deadline){
-			if(name != null){
+			if(content == null){
+				this.showAlert();
+			}
+		
+			else{
+				if(name==null)name="No Title";
+				if(deadline==null)deadline=this.getTodayDate();
 				this.changeToListView()
 				this.todos.push({name:name, content:content, deadline:deadline});
 				this.name = null
@@ -67,14 +74,16 @@ export default {
 		},
 		reviseTodo(name,content,deadline,i){
 			this.todos.splice(i,1);
-			if(name != null){
+			if(content ==null){
+				this.showAlert();
+			}
+			else{	
 				this.changeToListView()
 				this.todos.push({name:name, content:content, deadline:deadline});
 				this.name = null
 				this.content = null
 				this.deadline = null
 				this.sortDeadline()
-
 			}
 		},
 		canselTodo(){
@@ -91,6 +100,29 @@ export default {
 			this.viewType = 'revise'
 			console.log("index")
 			console.log(this.index)
+		},
+		showAlert(){
+			this.isAlertVisible = true;
+		},
+		closeAlert(){
+			this.isAlertVisible = false;
+		},
+		getTodayDate(){
+			var date = new Date();
+			var year = date.getFullYear(); 
+			var month = new String(date.getMonth()+1); 
+			var day = new String(date.getDate()); 
+
+			// 한자리수일 경우 0을 채워준다. 
+			if(month.length == 1){ 
+			  month = "0" + month; 
+			} 
+			if(day.length == 1){ 
+			  day = "0" + day; 
+			} 
+
+			return (year + "-" + month + "-" + day);
+			
 		}
 	},
 	computed:{
@@ -168,8 +200,9 @@ export default {
   display: block;
 }
 .content-layout {
-  overflow-y: scroll;
   position: relative;
   height: calc(100% - 40px);
 }
+
+
 </style>

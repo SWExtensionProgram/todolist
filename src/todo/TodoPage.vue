@@ -1,18 +1,18 @@
 <template>
 <div class="root-layout">
-	<div class="input-group" style="margin-bottom:10px;">
-		<input type="text" class="form-control" 
-			placeholder="할일을 입력하세요" 
-			v-model="name">
-		<textarea class="form-control" 
+	<div class="content-area">
+		<input class="name-area" type="text" placeholder="제목을 입력하세요" v-model="name">
+
+		<textarea 
  			placeholder="내용을 입력하세요" 
 			v-model="content"></textarea>
-		<input type="date" v-model="deadline">
+		<input class="date-area" type="date" v-model="deadline">
+	</div>
 		<div class="btn-area">
 			<button v-on:click="canselTodo()">취소</button>
 			<button v-on:click="createTodo(name,content,deadline)">완료</button>
 		</div>
-	</div>
+
 </div>
 </template>
 
@@ -44,17 +44,6 @@ export default {
   width: 100%;
   background-color: transparent;
 }
-</style>
-
-<style scoped>
-.root-layout {
-  display: block;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-color: transparent;
-  background-image: linear-gradient(salmon, pink);
-}
 .content-area {
   height: 85%;
 }
@@ -63,12 +52,38 @@ export default {
   position: relative;
   margin: auto;
   width: 95%;
-  height: 100%;
+  height: 70%;
   resize: none;
   background-color: transparent;
   outline: 0px;
   border: 0px;
+  border-bottom: 1px solid #eeeeee;
+  padding: 0 15px;
+  font-size: 13px;
+  vertical-text-align: middle;
+    font-family: Arial;
 }
+.name-area{
+	width:95%;
+	resize:none;  
+	background-color: transparent;
+	outline: 0px;  
+	border: 0px; 
+	padding: 5px 15px; 
+	border-bottom: 1px solid #eeeeee;  
+	font-size: 13px;
+	font-weight: bold;
+    font-family: Arial;
+}
+
+.date-area{
+	background-color: transparent;
+	outline: 0px;
+	border: 0px;
+	padding: 0px 15px;
+	font-family: Arial;
+}
+
 .btn-area {
   text-align: right;
   display: block;
