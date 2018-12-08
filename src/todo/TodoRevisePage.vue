@@ -18,7 +18,7 @@
 
 export default {
   name: 'TodoReviseView',
-  props : ['todo','viewType','index'],
+  props : ['todo','index'],
 
   	methods:{
 		reviseTodo(name,content,deadline,i){

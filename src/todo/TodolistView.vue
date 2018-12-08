@@ -3,7 +3,8 @@
 		<div class="header-layout">
 			<div class="header-title">{{title}}</div>
 			<div v-if="viewType==='list'" class="header-selection">
-				<button class="drop-btn">...<i class="fa fa-caret-down"></i>
+				<button class="drop-btn">...
+				<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="drop-content">
 					<button v-on:click="changeToTodoView()">생성</button>
@@ -12,11 +13,11 @@
 		</div>
 	<div class="content-layout">
 		<div v-if="viewType==='revise'">
-			<todoRevisePage :todo="todos[index]" :viewType="viewType" :index="index" @reviseTodo="reviseTodo" @canselTodo="canselTodo" />
+			<todoRevisePage :todo="todos[index]" :index="index" @reviseTodo="reviseTodo" @canselTodo="canselTodo" />
 			<alert v-show="isAlertVisible" @close="closeAlert"/>
 		</div>		
 		<div v-else-if="viewType==='todo'">
-			<todoPage :todos="todos" @createTodo="createTodo" @canselTodo="canselTodo" />
+			<todoPage @createTodo="createTodo" @canselTodo="canselTodo" />
 			<alert v-show="isAlertVisible" @close="closeAlert"/>
 		</div>
 		<div v-else>
@@ -32,7 +33,7 @@
 import todoList from './TodoList';
 import todoPage from './TodoPage';
 import todoRevisePage from './TodoRevisePage';
-import alert from './alert';
+import alert from './TodoAlert';
 　
 export default {
 	name: 'TodoView',
@@ -58,12 +59,12 @@ export default {
 		},
 		createTodo(name,content,deadline){
 
-			if(content == null){
+			if(content == null || content==""){
 				this.showAlert();
 			}
 		
 			else{
-				if(name==null)name="No Title";
+				if(name==null || name=="")name="No Title";
 				if(deadline==null)deadline=this.getTodayDate();
 				this.changeToListView()
 				this.todos.push({name:name, content:content, deadline:deadline});
@@ -95,15 +96,18 @@ export default {
 		},
 		changeToListView(){
 			this.viewType = 'list'
+			this.title = "TODO"
 		},
 		changeToTodoView(){
 			this.viewType = 'todo'
+			this.title = "NEW TODO"
 		},
 		changeToReviseView(i){
 			this.index = i;
 			this.viewType = 'revise'
 			console.log("index")
 			console.log(this.index)
+			this.title = "CHANGE TODO"
 		},
 		showAlert(){
 			this.isAlertVisible = true;
@@ -183,7 +187,7 @@ export default {
 .drop-content button {
   background-color: transparent;
   min-width: 160px;
-  padding: 12px 16px;
+  padding: 12px 0px;
   display: block;
   text-align: left;
   outline: 0px;
@@ -192,7 +196,7 @@ export default {
 .drop-content a {
   float: none;
   color: black;
-  padding: 12px 16px;
+  padding: 12px 0px;
   text-decoration: none;
   display: block;
   text-align: left;

@@ -35,7 +35,7 @@
 
 <script>
   export default {
-    name: 'alert',
+    name: 'TodoAlert',
     methods: {
       close() {
         this.$emit('close');

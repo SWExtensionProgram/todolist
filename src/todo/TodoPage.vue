@@ -20,7 +20,6 @@
 
 export default {
   name: 'TodoPage',
-  props : ['todos'],
 
   	methods:{
 		createTodo(name,content,deadline){
