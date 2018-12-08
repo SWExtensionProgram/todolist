@@ -22,7 +22,7 @@
       <span class="list-show-bar">|</span>
       <button v-on:click="change_show_state(1)">todo</button>
     </div>
-    <div v-if="todoShow" class="list-layout" style="right: calc(3% + 121px);"></div>
+    <div v-if="todoShow" class="list-layout" style="right: calc(3% + 121px);"><todo></todo></div>
     <div v-if="memoShow" class="list-layout">
       <memo></memo>
     </div>
@@ -32,6 +32,7 @@
 <script>
 var moment = require("moment-timezone");
 import memo from "./memo/MemoLayout.vue";
+import todo from "./todo/TodolistView.vue";
 export default {
   name: "time",
   data() {
@@ -45,7 +46,8 @@ export default {
     };
   },
   components: {
-    memo
+    memo,
+	todo
   },
   beforeCreate: function() {},
   mounted: function() {
