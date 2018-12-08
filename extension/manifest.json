@@ -1,5 +1,8 @@
 {
   "name": "To Do List",
+
+  "permissions": ["storage"],
+
   "description": "to do list",
   "version": "1.0.0",
   "icons": {

@@ -67,8 +67,14 @@ export default {
   mounted: function() {
     // memo list 조회해오는 코드 필요
     // this.memo_list = XXX 형식
+
+    var memoresult = [1, 2, 3];
+
+    var memolist = [];
+    var memoresult1;
+    let self = this;
     this.mode = 3;
-    this.last_index = this.memo_list[-1].id;
+    //self.last_index = self.memo_list[-1].id;
   },
   data() {
     return {
@@ -76,11 +82,8 @@ export default {
       mode: 0,
       selected_index: -1,
       last_index: -1,
-      memo_list: [
-        { id: 1, content: "hello" },
-        { id: 2, content: "world" },
-        { id: 3, content: "worldhellowdsfjxzkljksjflsjflksxkxk" }
-      ]
+      memo_list: [],
+      memokeylist: "memokeys"
     };
   },
   methods: {
@@ -89,7 +92,7 @@ export default {
     },
     modification_complete: function() {
       this.change_title_origin();
-      // this.memo_list.splice(this.selected_index, 1, new_object);
+      //this.memo_list.splice(this.selected_index, 1, new_object);
     },
     create_cancel: function() {
       this.change_title_origin();

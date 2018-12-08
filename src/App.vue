@@ -22,7 +22,9 @@
       <span class="list-show-bar">|</span>
       <button v-on:click="change_show_state(1)">todo</button>
     </div>
-    <div v-if="todoShow" class="list-layout" style="right: calc(3% + 121px);"><todo></todo></div>
+    <div v-if="todoShow" class="list-layout" style="right: calc(3% + 121px);">
+      <todo></todo>
+    </div>
     <div v-if="memoShow" class="list-layout">
       <memo></memo>
     </div>
@@ -47,19 +49,32 @@ export default {
   },
   components: {
     memo,
-	todo
+    todo
   },
   beforeCreate: function() {},
   mounted: function() {
     this.show_time();
     // 기존에 설정된 timezone이 있으면 불러와야 하는 부분
-    moment.tz.setDefault("Asia/Seoul");
+    var stored_timezone;
+    let self = this;
+    // storage에서 불러오는 부분
+    chrome.storage.local.get(["timezone"], function(stored_timezone) {
+      if (!stored_timezone.timezone) {
+        self.timezone = "Asia/Seoul";
+      } else {
+        self.timezone = stored_timezone.timezone;
+      }
+    });
+
+    moment.tz.setDefault(this.timezone);
     this.timezone_list = moment.tz.names();
   },
   watch: {
     timezone: function() {
       // timezone 변경해야 하는 부분. XXX = this.timezone의 형태로 변경 가능.
       this.show_time();
+      let self = this;
+      chrome.storage.local.set({ timezone: this.timezone }, function() {});
     }
   },
   methods: {
