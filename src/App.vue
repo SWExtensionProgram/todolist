@@ -144,6 +144,10 @@ export default {
   right: 1%;
 }
 
+::-webkit-scrollbar {
+  display: none !important;
+}
+
 .time-show-layout {
   position: relative;
   height: 80%;
